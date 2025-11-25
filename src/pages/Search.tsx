@@ -11,70 +11,89 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useState, useMemo } from "react";
 
 const Search = () => {
-  const providers = [
+  const [searchService, setSearchService] = useState("");
+  const [searchLocation, setSearchLocation] = useState("");
+
+  const allProviders = [
     {
       id: "1",
-      name: "Jean Dupont",
+      name: "Kouame Mensah",
       title: "Plombier certifié",
-      location: "Paris, Île-de-France",
+      location: "Yaoundé, Centre",
       rating: 4.9,
       reviews: 127,
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&q=80",
       skills: ["Dépannage", "Installation", "Rénovation"],
     },
     {
       id: "2",
-      name: "Marie Laurent",
+      name: "Amina Njoya",
       title: "Coiffeuse professionnelle",
-      location: "Lyon, Auvergne-Rhône-Alpes",
+      location: "Douala, Littoral",
       rating: 5.0,
       reviews: 89,
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop&q=80",
       skills: ["Coupe", "Coloration", "Coiffure mariage"],
     },
     {
       id: "3",
-      name: "Pierre Martin",
+      name: "Ebenezer Kamga",
       title: "Électricien agréé",
-      location: "Marseille, Provence-Alpes-Côte d'Azur",
+      location: "Yaoundé, Centre",
       rating: 4.8,
       reviews: 156,
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&q=80",
       skills: ["Dépannage", "Installation", "Mise aux normes"],
     },
     {
       id: "4",
-      name: "Sophie Bernard",
+      name: "Grace Fouda",
       title: "Peintre décoratrice",
-      location: "Toulouse, Occitanie",
+      location: "Douala, Littoral",
       rating: 4.7,
       reviews: 92,
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&q=80",
       skills: ["Peinture intérieure", "Décoration", "Rénovation"],
     },
     {
       id: "5",
-      name: "Luc Moreau",
+      name: "Ibrahim Nana",
       title: "Mécanicien automobile",
-      location: "Bordeaux, Nouvelle-Aquitaine",
+      location: "Yaoundé, Centre",
       rating: 4.9,
       reviews: 134,
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=400&h=400&fit=crop&q=80",
       skills: ["Entretien", "Réparation", "Diagnostic"],
     },
     {
       id: "6",
-      name: "Amélie Dubois",
+      name: "Fatima Bella",
       title: "Aide ménagère",
-      location: "Nice, Provence-Alpes-Côte d'Azur",
+      location: "Douala, Littoral",
       rating: 5.0,
       reviews: 178,
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&q=80",
       skills: ["Ménage", "Repassage", "Organisation"],
     },
   ];
+
+  const filteredProviders = useMemo(() => {
+    return allProviders.filter((provider) => {
+      const matchesService = 
+        searchService === "" ||
+        provider.title.toLowerCase().includes(searchService.toLowerCase()) ||
+        provider.skills.some(skill => skill.toLowerCase().includes(searchService.toLowerCase()));
+      
+      const matchesLocation = 
+        searchLocation === "" ||
+        provider.location.toLowerCase().includes(searchLocation.toLowerCase());
+      
+      return matchesService && matchesLocation;
+    });
+  }, [searchService, searchLocation]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -93,10 +112,17 @@ const Search = () => {
                 <Input
                   placeholder="Quel service recherchez-vous ?"
                   className="h-12"
+                  value={searchService}
+                  onChange={(e) => setSearchService(e.target.value)}
                 />
               </div>
               <div className="md:col-span-4">
-                <Input placeholder="Ville ou code postal" className="h-12" />
+                <Input 
+                  placeholder="Ville (Yaoundé, Douala...)" 
+                  className="h-12"
+                  value={searchLocation}
+                  onChange={(e) => setSearchLocation(e.target.value)}
+                />
               </div>
               <div className="md:col-span-3">
                 <Button size="lg" className="h-12 w-full">
@@ -114,10 +140,10 @@ const Search = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
               <div>
                 <p className="text-lg font-semibold">
-                  {providers.length} prestataires trouvés
+                  {filteredProviders.length} prestataires trouvés
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Affichage de tous les résultats
+                  {searchService || searchLocation ? "Résultats filtrés" : "Affichage de tous les résultats"}
                 </p>
               </div>
 
@@ -141,9 +167,17 @@ const Search = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {providers.map((provider, index) => (
-                <ProviderCard key={provider.id} {...provider} delay={index * 0.05} />
-              ))}
+              {filteredProviders.length > 0 ? (
+                filteredProviders.map((provider, index) => (
+                  <ProviderCard key={provider.id} {...provider} delay={index * 0.05} />
+                ))
+              ) : (
+                <div className="col-span-full text-center py-12">
+                  <p className="text-lg text-muted-foreground">
+                    Aucun prestataire trouvé. Essayez une autre recherche.
+                  </p>
+                </div>
+              )}
             </div>
 
             <div className="mt-12 flex justify-center">
