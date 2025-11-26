@@ -18,6 +18,9 @@ export const Navbar = () => {
           <Link to="/become-provider" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Devenir prestataire
           </Link>
+          <Link to="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Mon tableau de bord
+          </Link>
           <Link to="/how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Comment ça marche
           </Link>
