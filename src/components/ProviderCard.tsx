@@ -68,10 +68,12 @@ export const ProviderCard = ({
             ))}
           </div>
 
-          <Button className="w-full" variant="outline">
-            <MessageCircle className="h-4 w-4 mr-2" />
-            Contacter
-          </Button>
+          <Link to={`/provider/${id}`} className="w-full">
+            <Button className="w-full" variant="outline">
+              <MessageCircle className="h-4 w-4 mr-2" />
+              Contacter
+            </Button>
+          </Link>
         </div>
       </Card>
     </motion.div>
