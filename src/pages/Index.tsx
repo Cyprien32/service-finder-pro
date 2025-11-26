@@ -92,7 +92,7 @@ const Index = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${heroBackground})` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/75" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/50 to-background/40" />
         </div>
         <div className="container relative z-10">
           <motion.div
