@@ -19,6 +19,7 @@ import {
   Clock,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import heroBackground from "@/assets/hero-background.jpg";
 
 const Index = () => {
   const categories = [
@@ -33,32 +34,32 @@ const Index = () => {
   const featuredProviders = [
     {
       id: "1",
-      name: "Jean Dupont",
+      name: "Kouame Yao",
       title: "Plombier certifié",
-      location: "Paris, Île-de-France",
+      location: "Yaoundé, Centre",
       rating: 4.9,
       reviews: 127,
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop",
       skills: ["Dépannage", "Installation", "Rénovation"],
     },
     {
       id: "2",
-      name: "Marie Laurent",
+      name: "Amina Ndong",
       title: "Coiffeuse professionnelle",
-      location: "Lyon, Auvergne-Rhône-Alpes",
+      location: "Douala, Littoral",
       rating: 5.0,
       reviews: 89,
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop",
-      skills: ["Coupe", "Coloration", "Coiffure mariage"],
+      image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop",
+      skills: ["Coupe", "Tresses", "Coiffure mariage"],
     },
     {
       id: "3",
-      name: "Pierre Martin",
+      name: "Samuel Ngono",
       title: "Électricien agréé",
-      location: "Marseille, Provence-Alpes-Côte d'Azur",
+      location: "Yaoundé, Centre",
       rating: 4.8,
       reviews: 156,
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
       skills: ["Dépannage", "Installation", "Mise aux normes"],
     },
   ];
@@ -86,8 +87,14 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative gradient-hero py-20 md:py-32">
-        <div className="container">
+      <section className="relative py-20 md:py-32 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${heroBackground})` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/75" />
+        </div>
+        <div className="container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

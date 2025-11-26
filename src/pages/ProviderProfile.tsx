@@ -19,14 +19,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const ProviderProfile = () => {
   const provider = {
-    name: "Jean Dupont",
+    name: "Kouame Yao",
     title: "Plombier certifié",
-    location: "Paris, Île-de-France",
+    location: "Yaoundé, Centre",
     rating: 4.9,
     reviewCount: 127,
     completedJobs: 245,
     memberSince: "2020",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop",
     skills: [
       "Dépannage",
       "Installation",
@@ -36,7 +36,7 @@ const ProviderProfile = () => {
       "Débouchage",
     ],
     description:
-      "Plombier professionnel avec plus de 15 ans d'expérience. Je propose des services de qualité pour tous vos besoins en plomberie, du simple dépannage aux installations complexes. Disponible 7j/7 pour les urgences.",
+      "Plombier professionnel avec plus de 15 ans d'expérience à Yaoundé. Je propose des services de qualité pour tous vos besoins en plomberie, du simple dépannage aux installations complexes. Disponible 7j/7 pour les urgences dans toute la région du Centre.",
     certifications: [
       "Certification professionnelle de plombier",
       "Habilitation gaz",
@@ -51,15 +51,15 @@ const ProviderProfile = () => {
     reviewsList: [
       {
         id: 1,
-        author: "Marie L.",
+        author: "Grace N.",
         rating: 5,
         date: "Il y a 2 semaines",
         comment:
-          "Excellent service ! Jean est arrivé à l'heure et a résolu mon problème de fuite rapidement. Très professionnel et prix raisonnable.",
+          "Excellent service ! Kouame est arrivé à l'heure et a résolu mon problème de fuite rapidement. Très professionnel et prix raisonnable.",
       },
       {
         id: 2,
-        author: "Pierre M.",
+        author: "Paul M.",
         rating: 5,
         date: "Il y a 1 mois",
         comment:
@@ -67,7 +67,7 @@ const ProviderProfile = () => {
       },
       {
         id: 3,
-        author: "Sophie B.",
+        author: "Sophie E.",
         rating: 4,
         date: "Il y a 2 mois",
         comment:
