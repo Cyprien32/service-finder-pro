@@ -12,8 +12,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState, useMemo } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Search = () => {
+  const { t } = useLanguage();
   const [searchService, setSearchService] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
 
@@ -104,13 +106,13 @@ const Search = () => {
         <section className="bg-muted/30 py-12">
           <div className="container">
             <h1 className="text-3xl md:text-4xl font-bold mb-8">
-              Trouvez votre prestataire
+              {t('search.title')}
             </h1>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
               <div className="md:col-span-5">
                 <Input
-                  placeholder="Quel service recherchez-vous ?"
+                  placeholder={t('hero.search_service')}
                   className="h-12"
                   value={searchService}
                   onChange={(e) => setSearchService(e.target.value)}
@@ -118,7 +120,7 @@ const Search = () => {
               </div>
               <div className="md:col-span-4">
                 <Input 
-                  placeholder="Ville (Yaoundé, Douala...)" 
+                  placeholder={t('hero.search_location')}
                   className="h-12"
                   value={searchLocation}
                   onChange={(e) => setSearchLocation(e.target.value)}
@@ -127,7 +129,7 @@ const Search = () => {
               <div className="md:col-span-3">
                 <Button size="lg" className="h-12 w-full">
                   <SearchIcon className="h-5 w-5 mr-2" />
-                  Rechercher
+                  {t('hero.search_button')}
                 </Button>
               </div>
             </div>
@@ -140,28 +142,26 @@ const Search = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
               <div>
                 <p className="text-lg font-semibold">
-                  {filteredProviders.length} prestataires trouvés
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {searchService || searchLocation ? "Résultats filtrés" : "Affichage de tous les résultats"}
+                  {filteredProviders.length} {t('search.results')}
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-4 w-full md:w-auto">
                 <Select defaultValue="rating">
                   <SelectTrigger className="w-full md:w-[180px]">
-                    <SelectValue placeholder="Trier par" />
+                    <SelectValue placeholder={t('search.sort_by')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="rating">Meilleures notes</SelectItem>
-                    <SelectItem value="reviews">Plus d'avis</SelectItem>
-                    <SelectItem value="recent">Plus récents</SelectItem>
+                    <SelectItem value="rating">{t('search.rating')}</SelectItem>
+                    <SelectItem value="relevance">{t('search.relevance')}</SelectItem>
+                    <SelectItem value="price_low">{t('search.price_low')}</SelectItem>
+                    <SelectItem value="price_high">{t('search.price_high')}</SelectItem>
                   </SelectContent>
                 </Select>
 
                 <Button variant="outline" size="lg">
                   <SlidersHorizontal className="h-4 w-4 mr-2" />
-                  Filtres
+                  {t('search.filters')}
                 </Button>
               </div>
             </div>
@@ -174,7 +174,7 @@ const Search = () => {
               ) : (
                 <div className="col-span-full text-center py-12">
                   <p className="text-lg text-muted-foreground">
-                    Aucun prestataire trouvé. Essayez une autre recherche.
+                    {t('common.error')}
                   </p>
                 </div>
               )}
@@ -182,7 +182,7 @@ const Search = () => {
 
             <div className="mt-12 flex justify-center">
               <Button variant="outline" size="lg">
-                Charger plus de résultats
+                {t('search.load_more')}
               </Button>
             </div>
           </div>

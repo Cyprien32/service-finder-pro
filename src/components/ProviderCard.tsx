@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, MapPin, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ProviderCardProps {
   id: string;
@@ -28,6 +29,8 @@ export const ProviderCard = ({
   skills,
   delay = 0,
 }: ProviderCardProps) => {
+  const { t } = useLanguage();
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -57,7 +60,7 @@ export const ProviderCard = ({
           <div className="flex items-center gap-1">
             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
             <span className="font-semibold">{rating}</span>
-            <span className="text-sm text-muted-foreground">({reviews} avis)</span>
+            <span className="text-sm text-muted-foreground">({reviews} {t('providers.reviews')})</span>
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -71,7 +74,7 @@ export const ProviderCard = ({
           <Link to={`/provider/${id}`} className="w-full">
             <Button className="w-full" variant="outline">
               <MessageCircle className="h-4 w-4 mr-2" />
-              Contacter
+              {t('providers.contact')}
             </Button>
           </Link>
         </div>

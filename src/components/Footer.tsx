@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/logobantuhire.png";
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Footer = () => {
+  const { t } = useLanguage();
+  
   return (
     <footer className="border-t border-border bg-muted/50">
       <div className="container py-12">
@@ -10,7 +13,7 @@ export const Footer = () => {
           <div className="space-y-4">
             <img src={logo} alt="BantuHire" className="h-8 w-auto" />
             <p className="text-sm text-muted-foreground">
-              La plateforme qui connecte les meilleurs prestataires avec les clients qui en ont besoin.
+              {t('footer.description')}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
@@ -29,68 +32,63 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Pour les clients</h3>
+            <h3 className="font-semibold mb-4">{t('footer.for_clients')}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/search" className="text-muted-foreground hover:text-primary transition-colors">
-                  Trouver un prestataire
+                  {t('footer.find_provider')}
                 </Link>
               </li>
               <li>
                 <Link to="/how-it-works" className="text-muted-foreground hover:text-primary transition-colors">
-                  Comment ça marche
+                  {t('footer.how_it_works')}
                 </Link>
               </li>
               <li>
                 <Link to="/categories" className="text-muted-foreground hover:text-primary transition-colors">
-                  Catégories
+                  {t('nav.categories')}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Pour les prestataires</h3>
+            <h3 className="font-semibold mb-4">{t('footer.for_providers')}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/become-provider" className="text-muted-foreground hover:text-primary transition-colors">
-                  Devenir prestataire
+                  {t('nav.become_provider')}
                 </Link>
               </li>
               <li>
                 <Link to="/pricing" className="text-muted-foreground hover:text-primary transition-colors">
-                  Tarifs
+                  {t('footer.advantages')}
                 </Link>
               </li>
               <li>
                 <Link to="/success-stories" className="text-muted-foreground hover:text-primary transition-colors">
-                  Témoignages
+                  {t('footer.resources')}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">À propos</h3>
+            <h3 className="font-semibold mb-4">{t('footer.about')}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">
-                  Qui sommes-nous
+                  {t('footer.about')}
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">
-                  Contact
+                  {t('footer.contact')}
                 </Link>
               </li>
               <li>
-                <Link to="/legal" className="text-muted-foreground hover:text-primary transition-colors">
-                  Mentions légales
-                </Link>
-              </li>
-              <li>
-                <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
-                  Confidentialité
+                <Link to="/help" className="text-muted-foreground hover:text-primary transition-colors">
+                  {t('footer.help')}
                 </Link>
               </li>
             </ul>
@@ -98,7 +96,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} BantuHire. Tous droits réservés.</p>
+          <p>&copy; {new Date().getFullYear()} BantuHire. {t('footer.rights')}</p>
         </div>
       </div>
     </footer>

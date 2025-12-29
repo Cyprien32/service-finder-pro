@@ -22,6 +22,7 @@ import {
   Mail,
   Edit
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Données simulées
 const mockProfile = {
@@ -77,13 +78,14 @@ const mockMissions = [
 ];
 
 export default function FreelancerDashboard() {
+  const { t } = useLanguage();
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState(mockProfile);
 
   const stats = [
-    { label: "Missions terminées", value: profile.completedMissions, icon: CheckCircle, color: "text-green-500" },
-    { label: "Missions en cours", value: mockMissions.filter(m => m.status === "en_cours").length, icon: Clock, color: "text-blue-500" },
-    { label: "Note moyenne", value: profile.rating, icon: Star, color: "text-yellow-500" },
+    { labelKey: "dashboard.missions_completed", value: profile.completedMissions, icon: CheckCircle, color: "text-green-500" },
+    { labelKey: "dashboard.current_missions", value: mockMissions.filter(m => m.status === "en_cours").length, icon: Clock, color: "text-blue-500" },
+    { labelKey: "dashboard.average_rating", value: profile.rating, icon: Star, color: "text-yellow-500" },
   ];
 
   const missionsEnCours = mockMissions.filter(m => m.status === "en_cours");
@@ -100,15 +102,15 @@ export default function FreelancerDashboard() {
           transition={{ duration: 0.5 }}
         >
           <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-2">Tableau de bord</h1>
-            <p className="text-muted-foreground">Gérez votre profil et vos missions</p>
+            <h1 className="text-4xl font-bold mb-2">{t('dashboard.title')}</h1>
+            <p className="text-muted-foreground">{t('dashboard.profile')}</p>
           </div>
 
           {/* Statistiques */}
           <div className="grid gap-4 md:grid-cols-3 mb-8">
             {stats.map((stat, index) => (
               <motion.div
-                key={stat.label}
+                key={stat.labelKey}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
@@ -117,7 +119,7 @@ export default function FreelancerDashboard() {
                   <CardContent className="pt-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-muted-foreground">{stat.label}</p>
+                        <p className="text-sm text-muted-foreground">{t(stat.labelKey)}</p>
                         <p className="text-3xl font-bold">{stat.value}</p>
                       </div>
                       <stat.icon className={`h-8 w-8 ${stat.color}`} />
@@ -133,11 +135,11 @@ export default function FreelancerDashboard() {
             <TabsList className="grid w-full grid-cols-2 max-w-md">
               <TabsTrigger value="profile">
                 <User className="h-4 w-4 mr-2" />
-                Profil
+                {t('dashboard.profile')}
               </TabsTrigger>
               <TabsTrigger value="missions">
                 <Briefcase className="h-4 w-4 mr-2" />
-                Missions
+                {t('dashboard.missions')}
               </TabsTrigger>
             </TabsList>
 
@@ -146,8 +148,8 @@ export default function FreelancerDashboard() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
                   <div>
-                    <CardTitle>Mon profil</CardTitle>
-                    <CardDescription>Gérez vos informations personnelles</CardDescription>
+                    <CardTitle>{t('dashboard.profile')}</CardTitle>
+                    <CardDescription>{t('dashboard.edit_profile')}</CardDescription>
                   </div>
                   <Button 
                     variant="outline" 
@@ -155,7 +157,7 @@ export default function FreelancerDashboard() {
                     onClick={() => setIsEditing(!isEditing)}
                   >
                     <Edit className="h-4 w-4 mr-2" />
-                    {isEditing ? "Annuler" : "Modifier"}
+                    {isEditing ? t('dashboard.cancel') : t('common.edit')}
                   </Button>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -166,14 +168,14 @@ export default function FreelancerDashboard() {
                     </Avatar>
                     {isEditing && (
                       <Button variant="outline" size="sm">
-                        Changer la photo
+                        {t('common.edit')}
                       </Button>
                     )}
                   </div>
 
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="name">Nom complet</Label>
+                      <Label htmlFor="name">{t('dashboard.name')}</Label>
                       <Input
                         id="name"
                         value={profile.name}
@@ -183,7 +185,7 @@ export default function FreelancerDashboard() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="title">Titre professionnel</Label>
+                      <Label htmlFor="title">{t('dashboard.profession')}</Label>
                       <Input
                         id="title"
                         value={profile.title}
@@ -193,7 +195,7 @@ export default function FreelancerDashboard() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="phone">Téléphone</Label>
+                      <Label htmlFor="phone">{t('become.phone')}</Label>
                       <div className="flex items-center space-x-2">
                         <Phone className="h-4 w-4 text-muted-foreground" />
                         <Input
@@ -206,7 +208,7 @@ export default function FreelancerDashboard() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">{t('become.email')}</Label>
                       <div className="flex items-center space-x-2">
                         <Mail className="h-4 w-4 text-muted-foreground" />
                         <Input
@@ -220,7 +222,7 @@ export default function FreelancerDashboard() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="location">Localisation</Label>
+                      <Label htmlFor="location">{t('become.city')}</Label>
                       <div className="flex items-center space-x-2">
                         <MapPin className="h-4 w-4 text-muted-foreground" />
                         <Input
@@ -234,7 +236,7 @@ export default function FreelancerDashboard() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="bio">Biographie</Label>
+                    <Label htmlFor="bio">{t('dashboard.bio')}</Label>
                     <Textarea
                       id="bio"
                       value={profile.bio}
@@ -245,7 +247,7 @@ export default function FreelancerDashboard() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Compétences</Label>
+                    <Label>{t('dashboard.skills')}</Label>
                     <div className="flex flex-wrap gap-2">
                       {profile.skills.map((skill) => (
                         <Badge key={skill} variant="secondary">
@@ -257,7 +259,7 @@ export default function FreelancerDashboard() {
                       ))}
                       {isEditing && (
                         <Button variant="outline" size="sm">
-                          + Ajouter
+                          + {t('common.edit')}
                         </Button>
                       )}
                     </div>
@@ -266,10 +268,10 @@ export default function FreelancerDashboard() {
                   {isEditing && (
                     <div className="flex justify-end space-x-2">
                       <Button variant="outline" onClick={() => setIsEditing(false)}>
-                        Annuler
+                        {t('dashboard.cancel')}
                       </Button>
                       <Button onClick={() => setIsEditing(false)}>
-                        Enregistrer
+                        {t('dashboard.save')}
                       </Button>
                     </div>
                   )}
@@ -284,13 +286,13 @@ export default function FreelancerDashboard() {
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Clock className="h-5 w-5 mr-2 text-blue-500" />
-                    Missions en cours ({missionsEnCours.length})
+                    {t('dashboard.current_missions')} ({missionsEnCours.length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {missionsEnCours.length === 0 ? (
                     <p className="text-muted-foreground text-center py-8">
-                      Aucune mission en cours
+                      {t('common.loading')}
                     </p>
                   ) : (
                     missionsEnCours.map((mission) => (
@@ -307,7 +309,7 @@ export default function FreelancerDashboard() {
                               Client: {mission.client}
                             </p>
                           </div>
-                          <Badge variant="secondary">En cours</Badge>
+                          <Badge variant="secondary">{t('dashboard.in_progress')}</Badge>
                         </div>
                         <p className="text-sm">{mission.description}</p>
                         <div className="flex items-center justify-between text-sm">
@@ -318,7 +320,7 @@ export default function FreelancerDashboard() {
                           <span className="font-semibold">{mission.budget}</span>
                         </div>
                         <Button variant="outline" size="sm" className="w-full">
-                          Voir les détails
+                          {t('common.view')}
                         </Button>
                       </motion.div>
                     ))
@@ -331,7 +333,7 @@ export default function FreelancerDashboard() {
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <CheckCircle className="h-5 w-5 mr-2 text-green-500" />
-                    Missions terminées ({missionsTerminees.length})
+                    {t('dashboard.completed_missions')} ({missionsTerminees.length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -350,13 +352,13 @@ export default function FreelancerDashboard() {
                           </p>
                         </div>
                         <Badge variant="outline" className="text-green-600">
-                          Terminée
+                          {t('dashboard.completed')}
                         </Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">{mission.description}</p>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">
-                          Complétée le {new Date(mission.deadline).toLocaleDateString('fr-FR')}
+                          {new Date(mission.deadline).toLocaleDateString('fr-FR')}
                         </span>
                         <span className="font-semibold">{mission.budget}</span>
                       </div>
