@@ -20,15 +20,18 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroBackground from "@/assets/hero-background.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { t } = useLanguage();
+
   const categories = [
-    { icon: Wrench, title: "Plomberie", count: "245" },
-    { icon: Scissors, title: "Coiffure", count: "189" },
-    { icon: Zap, title: "Électricité", count: "312" },
-    { icon: PaintBucket, title: "Peinture", count: "156" },
-    { icon: Home, title: "Ménage", count: "421" },
-    { icon: Car, title: "Mécanique", count: "198" },
+    { icon: Wrench, titleKey: "category.plumbing", count: "245" },
+    { icon: Scissors, titleKey: "category.cleaning", count: "189" },
+    { icon: Zap, titleKey: "category.electricity", count: "312" },
+    { icon: PaintBucket, titleKey: "category.renovation", count: "156" },
+    { icon: Home, titleKey: "category.cleaning", count: "421" },
+    { icon: Car, titleKey: "category.moving", count: "198" },
   ];
 
   const featuredProviders = [
@@ -67,18 +70,18 @@ const Index = () => {
   const features = [
     {
       icon: Users,
-      title: "Prestataires vérifiés",
-      description: "Tous nos prestataires sont vérifiés et certifiés",
+      titleKey: "features.verified.title",
+      descriptionKey: "features.verified.desc",
     },
     {
       icon: Shield,
-      title: "Paiement sécurisé",
-      description: "Transactions 100% sécurisées et garanties",
+      titleKey: "features.payment.title",
+      descriptionKey: "features.payment.desc",
     },
     {
       icon: Clock,
-      title: "Disponibilité rapide",
-      description: "Trouvez un prestataire disponible près de chez vous",
+      titleKey: "features.booking.title",
+      descriptionKey: "features.booking.desc",
     },
   ];
 
@@ -102,42 +105,39 @@ const Index = () => {
             className="max-w-3xl mx-auto text-center space-y-8"
           >
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              Trouvez le{" "}
-              <span className="text-primary">prestataire idéal</span> près de
-              chez vous
+              {t('hero.title')}
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground">
-              Connectez-vous avec des professionnels qualifiés et vérifiés pour
-              tous vos besoins de services
+              {t('hero.subtitle')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
               <div className="flex-1">
                 <Input
-                  placeholder="Quel service recherchez-vous ?"
+                  placeholder={t('hero.search_service')}
                   className="h-12"
                 />
               </div>
               <div className="flex-1">
                 <Input
-                  placeholder="Ville ou code postal"
+                  placeholder={t('hero.search_location')}
                   className="h-12"
                 />
               </div>
               <Link to="/search">
                 <Button size="lg" className="h-12 px-8 w-full sm:w-auto">
                   <Search className="h-5 w-5 mr-2" />
-                  Rechercher
+                  {t('hero.search_button')}
                 </Button>
               </Link>
             </div>
 
             <div className="flex flex-wrap justify-center gap-4 text-sm">
-              <span className="text-muted-foreground">Recherches populaires:</span>
-              <button className="text-primary hover:underline">Plombier</button>
-              <button className="text-primary hover:underline">Coiffeur</button>
-              <button className="text-primary hover:underline">Électricien</button>
-              <button className="text-primary hover:underline">Peintre</button>
+              <span className="text-muted-foreground">{t('hero.popular')}</span>
+              <button className="text-primary hover:underline">{t('category.plumbing')}</button>
+              <button className="text-primary hover:underline">{t('category.electricity')}</button>
+              <button className="text-primary hover:underline">{t('category.cleaning')}</button>
+              <button className="text-primary hover:underline">{t('category.renovation')}</button>
             </div>
           </motion.div>
         </div>
@@ -149,7 +149,7 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <motion.div
-                key={feature.title}
+                key={feature.titleKey}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -159,8 +159,8 @@ const Index = () => {
                 <div className="p-4 rounded-full bg-primary/10 text-primary">
                   <feature.icon className="h-8 w-8" />
                 </div>
-                <h3 className="font-semibold text-xl">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <h3 className="font-semibold text-xl">{t(feature.titleKey)}</h3>
+                <p className="text-muted-foreground">{t(feature.descriptionKey)}</p>
               </motion.div>
             ))}
           </div>
@@ -177,18 +177,20 @@ const Index = () => {
             className="text-center space-y-4 mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold">
-              Explorez nos catégories
+              {t('categories.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Des professionnels qualifiés dans tous les domaines
+              {t('categories.subtitle')}
             </p>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {categories.map((category, index) => (
               <CategoryCard
-                key={category.title}
-                {...category}
+                key={category.titleKey + index}
+                icon={category.icon}
+                title={t(category.titleKey)}
+                count={category.count}
                 delay={index * 0.1}
               />
             ))}
@@ -206,10 +208,10 @@ const Index = () => {
             className="text-center space-y-4 mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold">
-              Prestataires populaires
+              {t('providers.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Découvrez les prestataires les mieux notés par nos clients
+              {t('providers.subtitle')}
             </p>
           </motion.div>
 
@@ -226,7 +228,7 @@ const Index = () => {
           <div className="text-center mt-12">
             <Link to="/search">
               <Button size="lg" variant="outline">
-                Voir tous les prestataires
+                {t('providers.view_all')}
               </Button>
             </Link>
           </div>
@@ -243,22 +245,18 @@ const Index = () => {
             className="max-w-3xl mx-auto text-center space-y-8"
           >
             <h2 className="text-3xl md:text-4xl font-bold">
-              Vous êtes prestataire ?
+              {t('cta.title')}
             </h2>
             <p className="text-lg text-muted-foreground">
-              Rejoignez BantuHire et développez votre activité en touchant des
-              milliers de clients potentiels
+              {t('cta.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/become-provider">
                 <Button size="lg" className="w-full sm:w-auto">
                   <CheckCircle className="h-5 w-5 mr-2" />
-                  Devenir prestataire
+                  {t('cta.button')}
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                En savoir plus
-              </Button>
             </div>
           </motion.div>
         </div>

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { LucideIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface CategoryCardProps {
   icon: LucideIcon;
@@ -10,6 +11,8 @@ interface CategoryCardProps {
 }
 
 export const CategoryCard = ({ icon: Icon, title, count, delay = 0 }: CategoryCardProps) => {
+  const { t } = useLanguage();
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -24,7 +27,7 @@ export const CategoryCard = ({ icon: Icon, title, count, delay = 0 }: CategoryCa
             <Icon className="h-6 w-6" />
           </div>
           <h3 className="font-semibold text-lg">{title}</h3>
-          <p className="text-sm text-muted-foreground">{count} prestataires</p>
+          <p className="text-sm text-muted-foreground">{count} {t('categories.providers')}</p>
         </div>
       </Card>
     </motion.div>

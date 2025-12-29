@@ -16,11 +16,14 @@ import {
   Award,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ProviderProfile = () => {
+  const { t, language } = useLanguage();
+
   const provider = {
     name: "Kouame Yao",
-    title: "Plombier certifié",
+    title: language === 'fr' ? "Plombier certifié" : "Certified Plumber",
     location: "Yaoundé, Centre",
     rating: 4.9,
     reviewCount: 127,
@@ -28,20 +31,27 @@ const ProviderProfile = () => {
     memberSince: "2020",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop",
     skills: [
-      "Dépannage",
+      language === 'fr' ? "Dépannage" : "Repairs",
       "Installation",
-      "Rénovation",
-      "Chauffage",
-      "Sanitaires",
-      "Débouchage",
+      language === 'fr' ? "Rénovation" : "Renovation",
+      language === 'fr' ? "Chauffage" : "Heating",
+      language === 'fr' ? "Sanitaires" : "Sanitary",
+      language === 'fr' ? "Débouchage" : "Unclogging",
     ],
-    description:
-      "Plombier professionnel avec plus de 15 ans d'expérience à Yaoundé. Je propose des services de qualité pour tous vos besoins en plomberie, du simple dépannage aux installations complexes. Disponible 7j/7 pour les urgences dans toute la région du Centre.",
-    certifications: [
-      "Certification professionnelle de plombier",
-      "Habilitation gaz",
-      "Formation énergies renouvelables",
-    ],
+    description: language === 'fr' 
+      ? "Plombier professionnel avec plus de 15 ans d'expérience à Yaoundé. Je propose des services de qualité pour tous vos besoins en plomberie, du simple dépannage aux installations complexes. Disponible 7j/7 pour les urgences dans toute la région du Centre."
+      : "Professional plumber with over 15 years of experience in Yaoundé. I offer quality services for all your plumbing needs, from simple repairs to complex installations. Available 7 days a week for emergencies throughout the Centre region.",
+    certifications: language === 'fr' 
+      ? [
+          "Certification professionnelle de plombier",
+          "Habilitation gaz",
+          "Formation énergies renouvelables",
+        ]
+      : [
+          "Professional Plumber Certification",
+          "Gas Authorization",
+          "Renewable Energy Training",
+        ],
     gallery: [
       "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=300&fit=crop",
       "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=400&h=300&fit=crop",
@@ -53,25 +63,28 @@ const ProviderProfile = () => {
         id: 1,
         author: "Grace N.",
         rating: 5,
-        date: "Il y a 2 semaines",
-        comment:
-          "Excellent service ! Kouame est arrivé à l'heure et a résolu mon problème de fuite rapidement. Très professionnel et prix raisonnable.",
+        date: language === 'fr' ? "Il y a 2 semaines" : "2 weeks ago",
+        comment: language === 'fr'
+          ? "Excellent service ! Kouame est arrivé à l'heure et a résolu mon problème de fuite rapidement. Très professionnel et prix raisonnable."
+          : "Excellent service! Kouame arrived on time and fixed my leak quickly. Very professional and reasonable price.",
       },
       {
         id: 2,
         author: "Paul M.",
         rating: 5,
-        date: "Il y a 1 mois",
-        comment:
-          "Très satisfait de l'installation de ma nouvelle salle de bain. Travail soigné et de qualité. Je recommande vivement !",
+        date: language === 'fr' ? "Il y a 1 mois" : "1 month ago",
+        comment: language === 'fr'
+          ? "Très satisfait de l'installation de ma nouvelle salle de bain. Travail soigné et de qualité. Je recommande vivement !"
+          : "Very satisfied with my new bathroom installation. Careful and quality work. I highly recommend!",
       },
       {
         id: 3,
         author: "Sophie E.",
         rating: 4,
-        date: "Il y a 2 mois",
-        comment:
-          "Bon service, réactif et efficace. Petit délai d'attente mais le travail était impeccable.",
+        date: language === 'fr' ? "Il y a 2 mois" : "2 months ago",
+        comment: language === 'fr'
+          ? "Bon service, réactif et efficace. Petit délai d'attente mais le travail était impeccable."
+          : "Good service, responsive and efficient. Small wait time but the work was impeccable.",
       },
     ],
   };
@@ -125,21 +138,21 @@ const ProviderProfile = () => {
                           {provider.rating}
                         </span>
                         <span className="text-muted-foreground">
-                          ({provider.reviewCount} avis)
+                          ({provider.reviewCount} {t('providers.reviews')})
                         </span>
                       </div>
                       <Separator orientation="vertical" className="h-6" />
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-5 w-5 text-primary" />
                         <span className="text-muted-foreground">
-                          {provider.completedJobs} projets réalisés
+                          {provider.completedJobs} {t('profile.completed_jobs')}
                         </span>
                       </div>
                       <Separator orientation="vertical" className="h-6" />
                       <div className="flex items-center gap-2">
                         <Clock className="h-5 w-5 text-primary" />
                         <span className="text-muted-foreground">
-                          Membre depuis {provider.memberSince}
+                          {t('profile.member_since')} {provider.memberSince}
                         </span>
                       </div>
                     </div>
@@ -161,18 +174,18 @@ const ProviderProfile = () => {
                 transition={{ delay: 0.3 }}
               >
                 <Card className="p-6 space-y-4 sticky top-24">
-                  <h3 className="font-semibold text-lg">Contacter ce prestataire</h3>
+                  <h3 className="font-semibold text-lg">{t('profile.contact')}</h3>
                   <Button className="w-full" size="lg">
                     <MessageCircle className="h-5 w-5 mr-2" />
-                    Envoyer un message
+                    {t('profile.contact')}
                   </Button>
                   <Button variant="outline" className="w-full" size="lg">
                     <Phone className="h-5 w-5 mr-2" />
-                    Appeler
+                    {language === 'fr' ? 'Appeler' : 'Call'}
                   </Button>
                   <Button variant="outline" className="w-full" size="lg">
                     <Mail className="h-5 w-5 mr-2" />
-                    Envoyer un email
+                    Email
                   </Button>
                 </Card>
               </motion.div>
@@ -192,7 +205,7 @@ const ProviderProfile = () => {
                   viewport={{ once: true }}
                 >
                   <Card className="p-6">
-                    <h2 className="text-2xl font-bold mb-4">À propos</h2>
+                    <h2 className="text-2xl font-bold mb-4">{t('profile.about')}</h2>
                     <p className="text-muted-foreground leading-relaxed">
                       {provider.description}
                     </p>
@@ -208,7 +221,7 @@ const ProviderProfile = () => {
                   <Card className="p-6">
                     <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
                       <Award className="h-6 w-6 text-primary" />
-                      Certifications et qualifications
+                      {language === 'fr' ? 'Certifications et qualifications' : 'Certifications and Qualifications'}
                     </h2>
                     <ul className="space-y-2">
                       {provider.certifications.map((cert, index) => (
@@ -228,7 +241,7 @@ const ProviderProfile = () => {
                   viewport={{ once: true }}
                 >
                   <Card className="p-6">
-                    <h2 className="text-2xl font-bold mb-4">Réalisations</h2>
+                    <h2 className="text-2xl font-bold mb-4">{t('profile.gallery')}</h2>
                     <div className="grid grid-cols-2 gap-4">
                       {provider.gallery.map((image, index) => (
                         <motion.div
@@ -238,7 +251,7 @@ const ProviderProfile = () => {
                         >
                           <img
                             src={image}
-                            alt={`Réalisation ${index + 1}`}
+                            alt={`${language === 'fr' ? 'Réalisation' : 'Work'} ${index + 1}`}
                             className="w-full h-full object-cover"
                           />
                         </motion.div>
@@ -255,7 +268,7 @@ const ProviderProfile = () => {
                 >
                   <Card className="p-6">
                     <h2 className="text-2xl font-bold mb-6">
-                      Avis clients ({provider.reviewsList.length})
+                      {t('profile.reviews')} ({provider.reviewsList.length})
                     </h2>
                     <div className="space-y-6">
                       {provider.reviewsList.map((review) => (
@@ -303,26 +316,26 @@ const ProviderProfile = () => {
                 >
                   <Card className="p-6">
                     <h3 className="font-semibold text-lg mb-4">
-                      Informations rapides
+                      {language === 'fr' ? 'Informations rapides' : 'Quick Info'}
                     </h3>
                     <div className="space-y-4">
                       <div>
                         <p className="text-sm text-muted-foreground mb-1">
-                          Taux de réponse
+                          {language === 'fr' ? 'Taux de réponse' : 'Response Rate'}
                         </p>
                         <p className="font-semibold">98%</p>
                       </div>
                       <Separator />
                       <div>
                         <p className="text-sm text-muted-foreground mb-1">
-                          Temps de réponse moyen
+                          {t('profile.response_time')}
                         </p>
-                        <p className="font-semibold">2 heures</p>
+                        <p className="font-semibold">{language === 'fr' ? '2 heures' : '2 hours'}</p>
                       </div>
                       <Separator />
                       <div>
                         <p className="text-sm text-muted-foreground mb-1">
-                          Disponibilité
+                          {language === 'fr' ? 'Disponibilité' : 'Availability'}
                         </p>
                         <p className="font-semibold">7j/7</p>
                       </div>
