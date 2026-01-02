@@ -16,6 +16,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.categories': 'Catégories',
     'nav.become_provider': 'Devenir prestataire',
     'nav.dashboard': 'Tableau de bord',
+    'nav.my_missions': 'Mes missions',
     'nav.login': 'Connexion',
     'nav.signup': 'Inscription',
     
@@ -174,6 +175,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.categories': 'Categories',
     'nav.become_provider': 'Become a Provider',
     'nav.dashboard': 'Dashboard',
+    'nav.my_missions': 'My Missions',
     'nav.login': 'Login',
     'nav.signup': 'Sign Up',
     
