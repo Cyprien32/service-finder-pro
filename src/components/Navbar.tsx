@@ -25,6 +25,9 @@ export const Navbar = () => {
           <Link to="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             {t('nav.dashboard')}
           </Link>
+          <Link to="/my-missions" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            {t('nav.my_missions')}
+          </Link>
         </div>
 
         <div className="flex items-center space-x-4">
