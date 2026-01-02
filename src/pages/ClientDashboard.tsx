@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -15,7 +16,6 @@ import {
   User,
   Euro,
   Eye,
-  MessageSquare,
   FileText,
   TrendingUp
 } from "lucide-react";
@@ -234,6 +234,8 @@ const ClientDashboard = () => {
 
   const lang = t("lang") === "Français" ? "fr" : "en";
 
+  const navigate = useNavigate();
+
   const MissionCard = ({ mission }: { mission: typeof missions[0] }) => (
     <Card className="bg-card/50 border-border/50 hover:border-primary/30 transition-all duration-300">
       <CardContent className="p-6">
@@ -280,11 +282,12 @@ const ClientDashboard = () => {
             <Eye className="w-4 h-4" />
             {text.missionDetails}
           </Button>
-          <Button variant="outline" size="sm" className="gap-2">
-            <MessageSquare className="w-4 h-4" />
-            {text.contactProvider}
-          </Button>
-          <Button variant="ghost" size="sm" className="gap-2">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="gap-2"
+            onClick={() => navigate(`/provider/${mission.id}`)}
+          >
             <FileText className="w-4 h-4" />
             {text.viewProfile}
           </Button>
